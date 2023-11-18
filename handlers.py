@@ -117,7 +117,7 @@ async def addPartitionUsingName(message: types.Message, state: FSMContext):
 
 @r.message(Command("delpart"))
 async def delPartitionKB(message: types.Message, state: FSMContext):
-    buttons = [[types.InlineKeyboardButton(text=i[1],callback_data=f"DP {i[0]}")for i in db.getPartitionsWithID()]]
+    buttons = [[types.InlineKeyboardButton(text=i[1],callback_data=f"DP {i[0]}")]for i in db.getPartitionsWithID()]
     kb = types.InlineKeyboardMarkup(inline_keyboard=buttons)
     if buttons!=[[]]:
         await message.answer("Выберите раздел для удаления", reply_markup=kb)
