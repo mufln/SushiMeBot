@@ -45,7 +45,7 @@ def main() -> None:
     )
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
-    web.run_app(app, host=HOST_PORT, port=HOST_IP)
+    web.run_app(app, host=HOST_IP, port=HOST_PORT)
 
 
 async def main_poll() -> None:
