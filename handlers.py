@@ -65,7 +65,6 @@ async def AdminHelp(message: types.Message, state: FSMContext):
     Позиции
     /addpos - добавление новой позиции 
     /delpos - удаление позиции
-    /listpos - показать позиции
     
     Адрес
     /addaddr - добавить адрес
