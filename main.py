@@ -30,7 +30,7 @@ async def dropWebhook(bot) -> None:
 def prepBot() -> [Bot, Dispatcher]:
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(router)
-    dp.startup.register(on_startup)
+    dp.startup.register(dropWebhook) if platform.system() in("Darwin","Windows") else dp.startup.register(on_startup)
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     return bot,dp
 
@@ -50,7 +50,7 @@ def main() -> None:
 
 async def main_poll() -> None:
     bot, dp = prepBot()
-    await bot.polling()
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
