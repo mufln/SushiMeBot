@@ -391,3 +391,4 @@ async def acceptOrder(data: types.CallbackQuery, state: FSMContext):
     staff = db.getStaff()
     await data.message.edit_caption(caption="Заказ принят")
     await data.bot.send_message(staff[0][0],text = user_data["order"]+"\n\n"+address)
+    await state.clear()
