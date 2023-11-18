@@ -178,7 +178,6 @@ async def AddPosBase(message:types.Message, state: FSMContext):
 
 @r.message(NewPosition.waitingForAll)
 async def addAll(message:types.Message, state: FSMContext):
-    print(message.caption)
     res = matcher.preparePosition(message.caption)
     photos = message.photo
     if any([type(res)==int,type(photos)==None]):
@@ -320,7 +319,6 @@ async def AddPos(data: types.CallbackQuery, state: FSMContext):
     p = id-1 if id-1>=0 else len(ids)-1
     n = id+1 if id+1<len(ids) else 0
 
-    print(bin)
     pos = db.getPos(ids[id][0])[0]
     count = bin[pos[0]]
     cost = count*pos[4]
@@ -366,7 +364,6 @@ async def ADDPOS(data:types.CallbackQuery, state: FSMContext):
 @r.callback_query(F.data.startswith("BUY"))
 async def setAddr(data:types.CallbackQuery,state:FSMContext):
     addresses = db.getUserAddresses(data.message.chat.id)
-    print(addresses)
     if addresses == []:
         await addAddressWhileBuying(data=data,state=state)
         return
@@ -400,6 +397,5 @@ async def acceptOrder(data: types.CallbackQuery, state: FSMContext):
     user_data = await state.get_data()
     address = db.getAddressByID(int(data.data.split()[1]))[0]
     staff = db.getStaff()
-    print(staff)
     await data.message.edit_caption(caption="Заказ принят")
     await data.bot.send_message(staff[0][0],text = user_data["order"]+"\n\n"+address)
