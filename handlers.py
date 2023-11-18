@@ -243,13 +243,6 @@ async def addAddress( message:types.Message, state: FSMContext):
     await state.clear()
 
 
-async def addAddressWhileBuying(data:types.CallbackQuery, state: FSMContext):
-    db.addAddress(data.message.from_user.id, data.message.text)
-    await data.message.answer("Адрес добавлен")
-    await setAddr(data, state)
-    return
-
-
 @r.callback_query(F.data.startswith("DADDR"))
 async def delAddr(data:types.CallbackQuery, state: FSMContext):
     db.delAddress(int(data.data.split()[1]))
@@ -280,6 +273,9 @@ async def listAddresses(message: types.Message, state: FSMContext):
 # @r.callback_query(F.data.startswith("LMENU"))
 @r.message(Command("menu"))
 async def listMenu(message:types.Message, state: FSMContext):
+    if db.getUserAddresses(message.from_user.id)==[]:
+        await message.answer("Добавьте адрес доставки перед покупкой /addaddr")
+        return
     ids = db.getPartitionsWithID()
     buttons = [[types.InlineKeyboardButton(text=i[1],callback_data=f"SPART {i[0]}")] for i in  ids]
     kb = types.InlineKeyboardMarkup(inline_keyboard=buttons)
@@ -364,9 +360,6 @@ async def ADDPOS(data:types.CallbackQuery, state: FSMContext):
 @r.callback_query(F.data.startswith("BUY"))
 async def setAddr(data:types.CallbackQuery,state:FSMContext):
     addresses = db.getUserAddresses(data.message.chat.id)
-    if addresses == []:
-        await addAddressWhileBuying(data=data,state=state)
-        return
     buttons = [[types.InlineKeyboardButton(text=f"{i[1]}",callback_data=f"ABUY {i[0]}")] for i in addresses]
     buttons += [[types.InlineKeyboardButton(text="меню",callback_data="LMENU")]]
     kb = types.InlineKeyboardMarkup(inline_keyboard=buttons)
