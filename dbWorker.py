@@ -84,7 +84,7 @@ class DB():
 
     def getPartitionsWithID(self) -> [int,str]:
         base,cur = self.connect()
-        cur.execute("SELECT id, name FROM PARTITIONS")
+        cur.execute("SELECT id, name FROM Partitions")
         res = cur.fetchall()
         cur.close();base.close()
         return res
