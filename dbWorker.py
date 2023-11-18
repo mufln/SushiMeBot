@@ -191,7 +191,7 @@ class DB():
     def getUsers(self):
         base, cur = self.connect()
         cur.execute("SELECT tg_id FROM Users")
-        res = cur.fetchall()
+        res = [i[0] for i in cur.fetchall()]
         cur.close();base.close()
         return res
     # -------------END-------------
