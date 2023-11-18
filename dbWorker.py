@@ -88,6 +88,14 @@ class DB():
         res = cur.fetchall()
         cur.close();base.close()
         return res
+
+
+    def getPartitionsIds(self)-> [int]:
+        base, cur = self.connect()
+        cur.execute("SELECT id FROM Partitions")
+        res = cur.fetchall()
+        cur.close();base.close()
+        return res
     # -------------END-------------
 
 
