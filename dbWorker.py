@@ -94,7 +94,6 @@ class DB():
         base, cur = self.connect()
         cur.execute("SELECT id FROM Partitions")
         res = [i[0] for i in cur.fetchall()]
-        print(res)
         cur.close();base.close()
         return res
     # -------------END-------------
@@ -175,7 +174,6 @@ class DB():
         base, cur = self.connect()
         cur.execute("SELECT id, address FROM Addresses WHERE tg_id = %s", (tg_id,))
         res = cur.fetchall()
-        print(res)
         cur.close(); base.close()
         return res
 
