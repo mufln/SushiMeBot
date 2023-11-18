@@ -272,7 +272,7 @@ async def listAddresses(message: types.Message, state: FSMContext):
 # @r.callback_query(F.data.startswith("LMENU"))
 @r.message(Command("menu"))
 async def listMenu(message:types.Message, state: FSMContext):
-    if db.getUserAddresses(message.from_user.id)==[]:
+    if db.getUserAddresses(message.chat.id)==[]:
         await message.answer("Добавьте адрес доставки перед покупкой /addaddr")
         return
     ids = db.getPartitionsWithID()
