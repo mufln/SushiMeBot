@@ -180,8 +180,8 @@ async def AddPosBase(message:types.Message, state: FSMContext):
 async def addAll(message:types.Message, state: FSMContext):
     res = matcher.preparePosition(message.caption)
     photos = message.photo
-    if any([type(res)==int,type(photos)==None,res[3] not in db.getPartitionsIds()]):
-        await message.answer("Неверный формат")
+    if any([type(res)==int,type(photos)==None,res[0] not in db.getPartitionsIds()]):
+        await message.answer("Неверный формат или раздела не существует")
         # await state.set_state(NewPosition.waitingForName)
         return
 
