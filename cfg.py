@@ -6,7 +6,7 @@ if platform.system() in ("Windows","Darwin"):
     DB_USER = "tg_bot"
     DB_PASSWORD = "Aa@12345678"
 else:
-    TOKEN = os.environ.get("TOKEN")
+    TOKEN = os.environ.get("SUSHIME_TOKEN")
     # webhook path '/webhook/'
     WEBHOOK_PATH = "/sushime_bot/"
     # aiohttp app ip:port
@@ -14,10 +14,10 @@ else:
     HOST_PORT = 8080
     # webhook base url 'https://<ip or domain>:port'
     WEBHOOK_BASE_URL = os.environ.get("BASE_URL")
-    WEBHOOK_SECRET = 'aoaommm'
+    WEBHOOK_SECRET = os.environ.get("SUSHI_SECRET")
     # SSL cert pathes
-    SSL_CERT = '/ssl_cert/cert.pem'
-    SSL_KEY = '/ssl_cert/private.key'
+    SSL_CERT = os.environ.get("SSL_CERT")
+    SSL_KEY = os.environ.get("SSL_CERT_KEY")
     # db variables
     DB_USER = os.environ.get("DB_USER")
     DB_PASSWORD = os.environ.get("DB_PASSWORD")
